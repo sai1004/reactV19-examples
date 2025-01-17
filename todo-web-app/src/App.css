@@ -1,21 +1,65 @@
 .App {
-  background-color: cadetblue;
-  height: 100vh;
-  width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
 }
 
 header {
-  text-align: center;
-  padding: 30px;
-  background-color: blueviolet;
-  font-size: larger;
-  font-weight: 800;
-  color: aliceblue;
+    text-align: center;
+    padding: 30px;
+    font-size: larger;
+    font-weight: 800;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .container {
-  background-color: brown;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1200px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.create__newtodo {
+    padding: 20px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+
+.flex-item input {
+    height: 25px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+button {
+    cursor: pointer;
+    height: 35px;
+    width: 120px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: blueviolet;
+}
+
+.todo__item-list {
+    display: flex;
+    gap: 50px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.todo__item {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    height: 250px;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.todo__item-body {
+    padding: 10px;
 }

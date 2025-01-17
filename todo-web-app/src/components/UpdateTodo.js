@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const UpdateTodo = () => {
-  return (
-    <div>UpdateTodo</div>
-  )
-}
+const UpdateTodo = ({ ...props }) => {
+    return <div>UpdateTodo</div>;
+};
 
-export default UpdateTodo
+export default UpdateTodo;

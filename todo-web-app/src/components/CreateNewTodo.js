@@ -23,28 +23,38 @@ const CreateNewTodo = () => {
 
     return (
         <>
-            <h3> Add New Todo </h3>
-            <form
-                onSubmit={(e) => {
-                    onSubmit(e);
-                }}
-            >
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="add new title"
-                    onChange={(e) => setTitle(e?.target?.value)}
-                    value={title}
-                />
-                <input
-                    type="text"
-                    name="description"
-                    placeholder="add new description"
-                    onChange={(e) => setDescription(e?.target?.value)}
-                    value={description}
-                />
-                <button type="submit">Add</button>
-            </form>
+            <div className="create__newtodo">
+                <h3> Add New Todo </h3>
+                <form
+                    onSubmit={(e) => {
+                        onSubmit(e);
+                    }}
+                >
+                    <div className="flex">
+                        <div className="flex-item">
+                            <input
+                                type="text"
+                                name="title"
+                                placeholder="add new title"
+                                onChange={(e) => setTitle(e?.target?.value)}
+                                value={title}
+                            />
+                        </div>
+                        <div className="flex-item">
+                            <input
+                                type="text"
+                                name="description"
+                                placeholder="add new description"
+                                onChange={(e) => setDescription(e?.target?.value)}
+                                value={description}
+                            />
+                        </div>
+                        <div className="flex-item">
+                            <button type="submit">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </>
     );
 };
