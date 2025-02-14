@@ -1,9 +1,15 @@
 import React from "react";
+import SigninForm from "../../../components/SigninForm";
 
 const SigninPage = () => {
     return (
-        <div>
-            <h1>SigninPage works !!</h1>
+        <div className="signin__page">
+            <div className="signin__page-container">
+                <div className="signin__page-info"></div>
+                <div className="signin__page-form">
+                    <SigninForm />
+                </div>
+            </div>
         </div>
     );
 };

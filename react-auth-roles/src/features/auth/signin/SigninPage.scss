@@ -1,0 +1,56 @@
+.signin__page {
+    min-height: 100vh;
+    width: 100%;
+    &-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    &-info {
+        height: 100vh;
+        width: 35%;
+        background-color: cadetblue;
+    }
+    &-form {
+        height: 100vh;
+        width: 65%;
+        background-color: #f0f0f0;
+        display: grid;
+        place-items: center;
+    }
+}
+
+.signin__form {
+    height: 500px;
+    width: 500px;
+    text-align: center;
+    &-logo,
+    &-greet {
+        margin-bottom: 40px;
+    }
+    &-form {
+        text-align: start;
+    }
+    input {
+        width: 100%;
+        height: 30px;
+        border-radius: 5px;
+        padding: 4px;
+        border: 1px solid black;
+        margin-top: 8px;
+    }
+    button {
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        border: none;
+        background-color: cadetblue;
+        font-size: medium;
+        font-weight: 900;
+        color: #f0f0f0;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+}
