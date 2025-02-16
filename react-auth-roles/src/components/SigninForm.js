@@ -1,14 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../utills/hooks/AuthProvider";
 
 const SigninForm = () => {
+    const navigate = useNavigate();
+    const { login } = useAuth();
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm();
 
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        console.log("Login successful", data);
+        if (data) {
+            login(data);
+            navigate("/dashboard");
+        }
+    };
 
     return (
         <div className="signin__form">
@@ -22,7 +32,6 @@ const SigninForm = () => {
                         New to Logo? <b>Sign Up</b>
                     </p>
                 </div>
-
                 <div className="signin__form-section">
                     <form className="signin__form-form" onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
@@ -31,12 +40,19 @@ const SigninForm = () => {
                             <input
                                 type="text"
                                 name="email"
-                                {...register("email", { required: true })}
+                                {...register("email", {
+                                    required: "Email is required",
+                                    pattern: {
+                                        value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                        message: "Invalid email address",
+                                    },
+                                })}
                                 aria-invalid={errors.email ? "true" : "false"}
+                                placeholder="Ex: example@xyz.com"
                             />
-                            {errors.email?.type === "required" && (
+                            {errors.email && (
                                 <p role="alert" className="error-message">
-                                    Email address is required
+                                    {errors.email.message}
                                 </p>
                             )}
                         </div>
@@ -50,6 +66,11 @@ const SigninForm = () => {
                                 {...register("password", { required: true })}
                                 aria-invalid={errors.password ? "true" : "false"}
                             />
+                            {errors.password?.type === "required" && (
+                                <p role="alert" className="error-message">
+                                    Password is required
+                                </p>
+                            )}
                         </div>
 
                         <button type="submit"> Signin </button>
