@@ -1,13 +1,14 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "../features/auth/AuthLayout";
-import SigninPage from "../features/auth/signin/SigninPage";
-import NotFound from "../components/NotFound";
-import SignupPage from "../features/auth/signup/SignupPage";
-import DashboardPage from "../features/dashboard/DashboardPage";
-import AdminPage from "../features/admin/AdminPage";
-import ProfilePage from "../features/profile/ProfilePage";
 import PrivateRoutes from "../utills/hooks/PrivateRoutes";
+
+const SigninPage = lazy(() => import("../features/auth/signin/SigninPage"));
+const SignupPage = lazy(() => import("../features/auth/signup/SignupPage"));
+const DashboardPage = lazy(() => import("../features/dashboard/DashboardPage"));
+const AdminPage = lazy(() => import("../features/admin/AdminPage"));
+const ProfilePage = lazy(() => import("../features/profile/ProfilePage"));
+const NotFound = lazy(() => import("../components/NotFound"));
 
 const AppRoutes = createBrowserRouter([
     {
@@ -18,25 +19,79 @@ const AppRoutes = createBrowserRouter([
         path: "auth",
         element: <AuthLayout />,
         children: [
-            { path: "signin", element: <SigninPage /> },
-            { path: "signup", element: <SignupPage /> },
+            {
+                path: "signin",
+                element: (
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <SigninPage />
+                    </Suspense>
+                ),
+            },
+            {
+                path: "signup",
+                element: (
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <SignupPage />
+                    </Suspense>
+                ),
+            },
         ],
     },
     {
         element: <PrivateRoutes />,
-        children: [{ path: "dashboard", element: <DashboardPage /> }],
+        children: [
+            {
+                path: "dashboard",
+                element: (
+                    <Suspense
+                        fallback={
+                            <div className="circle">
+                                <div className="quarter"></div>
+                                <div className="quarter"></div>
+                                <div className="quarter"></div>
+                                <div className="quarter"></div>
+                            </div>
+                        }
+                    >
+                        <DashboardPage />
+                    </Suspense>
+                ),
+            },
+        ],
     },
     {
-        path: "admin",
-        element: <AdminPage />,
+        element: <PrivateRoutes />,
+        children: [
+            {
+                path: "admin",
+                element: (
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <AdminPage />
+                    </Suspense>
+                ),
+            },
+        ],
     },
     {
-        path: "profile",
-        element: <ProfilePage />,
+        element: <PrivateRoutes />,
+        children: [
+            {
+                path: "profile",
+                element: (
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <ProfilePage />
+                    </Suspense>
+                ),
+            },
+        ],
     },
     {
         path: "*",
-        element: <NotFound />,
+        element: (
+            <Suspense fallback={<div>Loading...</div>}>
+                <NotFound />
+            </Suspense>
+        ),
     },
 ]);
 
