@@ -1,0 +1,61 @@
+select salary from employee orderBy salary "DESC";
+
+orders
+id 
+Itemid
+qty
+amt
+date
+
+select Itemid from orders where count(Itemid) orderby "DESC";
+
+
+
+console.log(0);
+call1();
+function call1(){
+	console.log(1)
+	call2()
+	console.log(1.1)
+}
+ 
+function call2(){
+	//console.log(2)
+    setTimeout(()=>{
+        console.log(2)
+    },0)
+}
+ 
+console.log(3);
+
+
+o\p:
+
+0
+1
+1.1
+3
+2
+
+
+src
+    assets
+        html
+    entities
+    daos
+    services
+    controllers
+    middlewares
+    utils
+    config 
+    constants
+    index.ts
+
+
+    for (let i = 0; i <= 5; i++) {
+        setTimeout(()=> { 
+            console.log(i)
+        },1000)
+    }
+
+
