@@ -1,5 +1,5 @@
 {
-  "name": "search-debounce-app",
+  "name": "autocomplete-debounce-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
