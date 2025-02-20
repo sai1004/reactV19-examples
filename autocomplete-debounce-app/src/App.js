@@ -5,12 +5,18 @@ function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResult, setSearchResult] = useState([]);
     const [showResullt, setShowResult] = useState(false);
+    const [cache, setCache] = useState({});
 
     const fetchData = async () => {
+        if(cache[searchQuery]) {
+            setSearchResult(cache[searchQuery])
+            return
+        }
         const response = await fetch("https://dummyjson.com/recipes/search?q=" + searchQuery);
         const json = await response.json();
         console.log("json", json);
-        setSearchResult(json.recipes);
+        setSearchResult(json?.recipes);
+        setCache((prev) => ({ ...prev, [searchQuery]: json?.recipes }));
     };
 
     useEffect(() => {
@@ -42,13 +48,18 @@ function App() {
                         }}
                     />
                 </div>
-                <div className="search-result-container">
-                    {showResullt &&
-                        searchResult &&
-                        searchResult.map((result) => {
-                            return <div key={result.id} className="search-item">{result.name}</div>;
-                        })}
-                </div>
+                {showResullt && (
+                    <div className="search-result-container">
+                        {searchResult &&
+                            searchResult.map((result) => {
+                                return (
+                                    <div key={result.id} className="search-item">
+                                        {result.name}
+                                    </div>
+                                );
+                            })}
+                    </div>
+                )}
             </div>
         </div>
     );

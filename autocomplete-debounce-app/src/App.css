@@ -14,7 +14,7 @@
         }
     }
     .search-result-container {
-        max-height: 500px;
+        max-height: 400px;
         overflow-y: scroll;
         border: 1px solid black;
         width: 100%;
