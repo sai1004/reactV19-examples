@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import TodoListTable from "./TodoListTable";
 import "./App.css";
 
@@ -8,7 +8,7 @@ function App() {
     const [filteredTodoList, setFilteredTodoList] = useState([]);
     const [errors, setErrors] = useState("");
 
-    const fetchTodoList = useMemo(() => {
+    const fetchTodoList = () => {
         return async () => {
             try {
                 const response = await fetch(`https://jsonplaceholder.typicode.com/todos`);
@@ -23,7 +23,7 @@ function App() {
                 setErrors(true);
             }
         };
-    }, []);
+    };
 
     useEffect(() => {
         if (todoList.length <= 0 && !errors) {
