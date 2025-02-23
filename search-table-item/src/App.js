@@ -8,21 +8,19 @@ function App() {
     const [filteredTodoList, setFilteredTodoList] = useState([]);
     const [errors, setErrors] = useState("");
 
-    const fetchTodoList = () => {
-        return async () => {
-            try {
-                const response = await fetch(`https://jsonplaceholder.typicode.com/todos`);
-                if (!response.ok) {
-                    throw new Error("Please try again by refreshing page!");
-                }
-                const json = await response.json();
-                setErrors(false);
-                setTodoList(json);
-                setFilteredTodoList(json);
-            } catch (error) {
-                setErrors(true);
+    const fetchTodoList = async () => {
+        try {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/todos`);
+            if (!response.ok) {
+                throw new Error("Please try again by refreshing page!");
             }
-        };
+            const json = await response.json();
+            setErrors(false);
+            setTodoList(json);
+            setFilteredTodoList(json);
+        } catch (error) {
+            setErrors(true);
+        }
     };
 
     useEffect(() => {
