@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 const PAGE_NUMBER = 1;
+
 function App() {
     const [coins, setCoins] = useState([]);
     const [page, setPage] = useState(PAGE_NUMBER);
@@ -14,7 +15,6 @@ function App() {
                 const response = await axios.get(
                     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${page}2&page=1&sparkline=false`
                 );
-
                 if (response) {
                     setCoins((prev) => {
                         return [...prev, ...response?.data];
@@ -28,11 +28,18 @@ function App() {
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
-
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const handleScroll = () => {
+        /**
+         * get viewport/screen height -> window.innerHeight
+         * get current scroll position -> document.documentElement.scrollTop (when it touches end of scroll call api)
+         * get scroll height -> document.documentElement.scrollHeight
+         *
+         * In general window.innerHeight (screen height) & document.documentElement.scrollHeight (scroll height in screen) has same value
+         *
+         */
         if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
             setLoading(true);
             setPage((prev) => prev + 1);
@@ -44,7 +51,7 @@ function App() {
             {coins &&
                 coins.map((coin, index) => {
                     return (
-                        <div key={index + "XYZ"}>
+                        <div key={index}>
                             <h1> Coin Name: {coin?.name}</h1>
                         </div>
                     );
