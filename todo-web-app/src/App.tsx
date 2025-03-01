@@ -22,27 +22,17 @@ function App() {
             setTodoList((prev) => {
                 return [...prev, todo];
             });
-            // localStorage.setItem("todoList", JSON.stringify(todoList));
             setTodo({ id: 0, title: "", completed: false });
         }
     };
 
     const toggleCompleted = (id: number) => {
         setTodoList(todoList.map((todo) => (todo.id == id ? { ...todo, completed: !todo.completed } : todo)));
-        // localStorage.setItem("todoList", JSON.stringify(todoList));
     };
 
     const deleteTodo = (id: number) => {
         setTodoList(todoList.filter((todo) => todo.id !== id));
-        // localStorage.setItem("todoList", JSON.stringify(todoList));
     };
-
-    // useEffect(() => {
-    //     console.log("totot", todoList.length);
-    //     const tododata = JSON.parse(JSON.stringify(localStorage.getItem("todoList")));
-    //     console.log("tododata", tododata);
-    //     setTodoList(JSON.parse(tododata));
-    // }, []);
 
     return (
         <>
@@ -55,24 +45,24 @@ function App() {
             </div>
             <div className="todo-list-container">
                 {todoList &&
-                    todoList.map((todo: Todo) => {
+                    todoList?.map((todo: Todo) => {
                         return (
-                            <div key={todo.id} className="todo">
+                            <div key={todo?.id} className="todo">
                                 <div>
                                     <h4>
-                                        Title: {todo.completed ? <del>{todo.title}</del> : <span>{todo.title}</span>}
+                                        Title: {todo?.completed ? <del>{todo?.title}</del> : <span>{todo?.title}</span>}
                                     </h4>
                                 </div>
                                 <div>
                                     <span>Status: </span>
                                     <input
                                         type="checkbox"
-                                        checked={todo.completed}
-                                        onChange={() => toggleCompleted(todo.id)}
+                                        checked={todo?.completed}
+                                        onChange={() => toggleCompleted(todo?.id)}
                                     />
                                 </div>
                                 <div>
-                                    <button onClick={() => deleteTodo(todo.id)}> X </button>
+                                    <button onClick={() => deleteTodo(todo?.id)}> X </button>
                                 </div>
                             </div>
                         );
