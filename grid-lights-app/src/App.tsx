@@ -1,25 +1,34 @@
 import { useState } from "react";
 import "./App.css";
+const matrix = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+];
 
-function App() {
+export default function App() {
     const [activeCell, setActiveCell] = useState<Record<string, string>>({});
-    const grid: Array<number[]> = [
-        [0, 0, 1],
-        [0, 0, 1],
-        [0, 0, 1],
-    ];
+    const grid: Array<number[]> = matrix;
 
     const updateAtiveCell = (rowIndex: number, cellIndex: number): void => {
-        console.log("index >>", rowIndex, cellIndex);
-        setActiveCell((prev) => {
-            return { ...prev, [`${rowIndex}-${cellIndex}`]: `${rowIndex}-${cellIndex}` };
-        });
-        console.log("activeCell", activeCell[`${rowIndex}-${cellIndex}`]);
-        clearActiveCell();
+        setTimeout(() => {
+            console.log("index >>", rowIndex, cellIndex);
+            setActiveCell((prev) => {
+                return { ...prev, [`${rowIndex}-${cellIndex}`]: `${rowIndex}-${cellIndex}` };
+            });
+            console.log("activeCell", activeCell[`${rowIndex}-${cellIndex}`]);
+            clearActiveCellInReverseSequence()
+        }, 400);
     };
-
-    const clearActiveCell = () => {
-        const timer: ReturnType<typeof setInterval> = setInterval(() => {}, 3000);
+ 
+    const clearActiveCellInReverseSequence = () => {
+        // not completed yet logic part
+        const clonedObj = { ...activeCell };
+        const keys = Object.keys(clonedObj);
+        for (let i = 0; i < keys.length; i++) {
+            // const timer: ReturnType<typeof setInterval> = setInterval(() => {
+            // }, i * 3000);
+        }
     };
 
     return (
@@ -34,7 +43,7 @@ function App() {
                                         <div
                                             key={cellIndex}
                                             className={
-                                                `${rowIndex}-${cellIndex}` == activeCell[`${rowIndex}-${cellIndex}`]
+                                                `${rowIndex}-${cellIndex}` === activeCell[`${rowIndex}-${cellIndex}`]
                                                     ? "cell-active"
                                                     : "cell"
                                             }
@@ -51,5 +60,3 @@ function App() {
         </div>
     );
 }
-
-export default App;
