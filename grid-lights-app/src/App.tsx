@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 const matrix = [
     [0, 0, 0],
@@ -9,26 +9,40 @@ const matrix = [
 export default function App() {
     const [activeCell, setActiveCell] = useState<Record<string, string>>({});
     const grid: Array<number[]> = matrix;
+    const timersRef = useRef<number[]>([]); // Explicitly typed as an array of numbers
 
     const updateAtiveCell = (rowIndex: number, cellIndex: number): void => {
+        console.log("index >>", rowIndex, cellIndex);
+        setActiveCell((prev) => {
+            return { ...prev, [`${rowIndex}-${cellIndex}`]: `${rowIndex}-${cellIndex}` };
+        });
+        console.log("activeCell", activeCell[`${rowIndex}-${cellIndex}`]);
         setTimeout(() => {
-            console.log("index >>", rowIndex, cellIndex);
-            setActiveCell((prev) => {
-                return { ...prev, [`${rowIndex}-${cellIndex}`]: `${rowIndex}-${cellIndex}` };
-            });
-            console.log("activeCell", activeCell[`${rowIndex}-${cellIndex}`]);
-            clearActiveCellInReverseSequence()
-        }, 400);
+            clearActiveCellInReverseSequence();
+        }, 1000);
     };
- 
+
     const clearActiveCellInReverseSequence = () => {
-        // not completed yet logic part
-        const clonedObj = { ...activeCell };
-        const keys = Object.keys(clonedObj);
-        for (let i = 0; i < keys.length; i++) {
-            // const timer: ReturnType<typeof setInterval> = setInterval(() => {
-            // }, i * 3000);
-        }
+        const keys = Object.keys(activeCell).reverse();
+
+        if (keys.length === 0) return; // Stop if object is empty
+
+        timersRef.current.forEach(clearTimeout);
+        timersRef.current = [];
+
+        keys.forEach((key, index) => {
+            const timer: ReturnType<typeof setTimeout> = window.setTimeout(() => {
+                setActiveCell((prevObj) => {
+                    const newObj = { ...prevObj };
+                    delete newObj[key];
+                    // ✅ Ensure the last key deletion results in an empty object
+                    return Object.keys(newObj).length > 0 ? newObj : {};
+                });
+
+                console.log(`Deleted key: ${key}`);
+            }, index * 5000);
+            timersRef.current.push(timer);
+        });
     };
 
     return (
